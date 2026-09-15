@@ -7,6 +7,10 @@ router.get('/:id/:name',(req,res)=>{
     console.log("Get request received at:"+Date.now());
 });
 
+router.get("/",(req,res)=>{
+    res.send("this is")
+})
+
 router.post("/",(req,res)=>{
     res.send("THis is post router");
 });

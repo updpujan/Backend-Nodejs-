@@ -1,9 +1,11 @@
 import express from "express";
 import serviceRouter from "./Routes/serviceRoute.js";
 import route1 from "./Routes/homerRoute.js";
+import loggerMiddleware  from "./middleware/loggerMiddleware.js";
 
 const app = express();
 app.use(express.json());
+app.use(loggerMiddleware);
 
 //view engine using ejs
 app.set("view engine","ejs");
