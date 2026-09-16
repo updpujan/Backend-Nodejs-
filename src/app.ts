@@ -2,10 +2,11 @@ import express from "express";
 import "dotenv/config";
 
 
-import serviceRouter from "./Routes/serviceRoute.js";
-import route1 from "./Routes/homerRoute.js";
+import route1 from "./Routes/frontendRoute.js";
 import loggerMiddleware  from "./middleware/loggerMiddleware.js";
-import tokenRoute from "./Routes/authRoute.js"
+import authRoute from "./Routes/authRoute.js"
+import userProtection from "./middleware/authMiddleware.js";
+
 
 
 const app = express();
@@ -19,9 +20,8 @@ app.set("views","./src/views");
 
 //home page
 app.use("/",route1);
-app.use("/token",tokenRoute);
+app.use("/",authRoute);
 
-app.use("/service",serviceRouter);
 
 //invalid path/route
 app.use((req,res)=>{
