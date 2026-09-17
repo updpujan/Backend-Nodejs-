@@ -1,6 +1,7 @@
 import express from "express";
 import protect from "../middleware/authMiddleware.js";
 import { userProfile } from "../controller/userProfileController.js";
+import { adminValidator } from "../middleware/adminValidator.js";
 
 const route = express.Router();
 
@@ -16,15 +17,17 @@ route.get("/registration",(req,res)=>{
     res.render("registration");
 });
 
-route.get("/admin",(req,res)=>{
+route.get("/adminPage",(req,res)=>{
     res.render("admin");
 });
+route.get('/admin',protect,adminValidator);
+
+
 
 
 route.get("/userProfile", (req, res) => {
     res.render("user");
 });
-
 route.get("/user", protect, userProfile);
 
 

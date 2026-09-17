@@ -8,6 +8,7 @@ export const userProfile = async (req:Request, res:Response, next:NextFunction) 
         sucess : true,
         name: userData?.name,
         id: userData?.id,
-        email: userData?.email
+        email: userData?.email,
+        role: userData?.role
     });
 };

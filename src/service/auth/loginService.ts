@@ -27,6 +27,10 @@ export const loginService = async (email:string,password:string) => {
     return {
         sucess:true,
         message: "login sucessfull",
-        token: jwt_token
+        token: jwt_token,
+        user: {
+            email: email,
+            role: user.role
+        }
     };
 };

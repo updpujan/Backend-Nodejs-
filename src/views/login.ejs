@@ -44,7 +44,10 @@
         if(data.sucess == true){
           localStorage.setItem("token", data.token);
           alert(data.message);
-          window.location.href = '/userProfile';
+          
+          if(data.user.role == "admin") window.location.href = '/adminPage';
+          else window.location.href = '/userProfile';
+
         }
         if(data.sucess == false){
           alert(data.message);

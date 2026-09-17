@@ -5,12 +5,13 @@ import { Request,Response,NextFunction } from "express";
 
 
 export const register = async (req:Request,res:Response,next:NextFunction)=>{
-    const {name,email,password} = req.body;
+    const {name,email,password,role} = req.body;
     const user:User ={
         id : null,
         name: name,
         email: email,
-        password: password
+        password: password,
+        role: role
     };
     const response = await registerService(user);
     res.json(response);

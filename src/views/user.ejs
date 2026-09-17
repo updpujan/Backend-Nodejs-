@@ -12,13 +12,12 @@
   <p id="name"></p>
   <p id="email"></p>
   <p id="id"></p>
+  <p id="role"></p>
 
 
     <script>
       async function loadUserData() {
         const token = localStorage.getItem("token");
-      
-        console.log("TOKEN:", token);
       
         if (!token) {
           window.location.href = "/login";
@@ -32,11 +31,7 @@
           }
         });
       
-        console.log("Response status:", response.status);
-      
         const data = await response.json();
-      
-        console.log("Response data:", data);
       
         if (data.success === false) {
           alert(data.message);
@@ -52,6 +47,9 @@
       
         document.getElementById("id").textContent =
           `ID: ${data.id}`;
+
+         document.getElementById("role").textContent =
+          `Role: ${data.role}`;
       }
     
       loadUserData();
