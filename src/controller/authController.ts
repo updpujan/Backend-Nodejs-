@@ -1,7 +1,11 @@
 import { User } from "../model/userModel.js";
-import { registerService } from "../service/registerService.js";
+import { registerService } from "../service/auth/registerService.js";
+import { loginService } from "../service/auth/loginService.js"
+import { Request,Response,NextFunction } from "express";
 
-export async function register(name:string,email:string,password:string){
+
+export const register = async (req:Request,res:Response,next:NextFunction)=>{
+    const {name,email,password} = req.body;
     const user:User ={
         id : null,
         name: name,
@@ -9,5 +13,14 @@ export async function register(name:string,email:string,password:string){
         password: password
     };
     const response = await registerService(user);
-    return response;
-}
+    res.json(response);
+
+};
+
+
+export const login = async (req:Request,res:Response,next:NextFunction) => {
+    const {email,password} = await req.body;
+    const response = await loginService(email,password);
+    res.json(response);
+
+};

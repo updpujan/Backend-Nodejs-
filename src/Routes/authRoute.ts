@@ -1,16 +1,12 @@
 import express from "express";
-import {tokenGeneration} from "../utils/jwt.js";
-import protect from "../middleware/authMiddleware.js"
-import { validateRegistration } from "../middleware/validationMiddleware.js";
+//import protect from "../middleware/authMiddleware.js"
+import { register,login } from "../controller/authController.js";
+import { emailChecker } from "../middleware/emailChecker.js";
 
 const route = express.Router();
 
-route.get("/login",(req,res)=>{
-    const token = tokenGeneration(123);
-    res.json({token,});
-});
-
-route.post("/registration",validateRegistration);
+route.post("/registration",emailChecker,register);
+route.post("/login",login);
 
 
 export default route;

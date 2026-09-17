@@ -32,3 +32,9 @@ export const addUser = (user:User) => {
     users.push(user);
     fs.writeFileSync(filepath,JSON.stringify(users,null,2),"utf-8");
 };
+
+export const getUserData = async (id:number) =>{
+    const users = getUsers();
+    const user = users.find((user)=> user.id == id);
+    return user;
+}

@@ -8,5 +8,52 @@
   <h1>This is login page</h1>
   <a href="/">home </a>
 
+  <form action="/loginCheck" id="form">
+    <div>
+      <label for="Email">Email</label>
+      <input type="text" id="email" placeholder="Enter your Email" required>
+    </div>
+    <br>
+    <div>
+      <label for="password">Password</label>
+        <input type="password" id="password" placeholder="ENter your password" required>
+    </div>
+    <br>
+    <button type="submit">Login</button>
+  </form>
+  <script>
+    const form = document.getElementById("form");
+
+    form.addEventListener("submit",async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try{
+        const response = await fetch("/login",{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email,password
+          })
+        });
+
+        const data = await response.json();
+        if(data.sucess == true){
+          localStorage.setItem("token", data.token);
+          alert(data.message);
+          window.location.href = '/userProfile';
+        }
+        if(data.sucess == false){
+          alert(data.message);
+        }
+      }catch(err){
+        console.log(err);
+        alert(err);
+      }
+    });
+  </script>
 </body>
 </html>

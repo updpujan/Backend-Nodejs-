@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { User } from "../model/userModel.js";
-import { getUsers,addUser } from "../repository/fileConnection.js";
+import { User } from "../../model/userModel.js";
+import { getUsers,addUser } from "../../repository/fileConnection.js";
 
 export const registerService = async (user:User)=>{
     const usersCount = getUsers().length;

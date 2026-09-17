@@ -1,4 +1,6 @@
 import express from "express";
+import protect from "../middleware/authMiddleware.js";
+import { userProfile } from "../controller/userProfileController.js";
 
 const route = express.Router();
 
@@ -18,9 +20,12 @@ route.get("/admin",(req,res)=>{
     res.render("admin");
 });
 
-route.get("/user",(req,res)=>{
+
+route.get("/userProfile", (req, res) => {
     res.render("user");
 });
+
+route.get("/user", protect, userProfile);
 
 
 export default route

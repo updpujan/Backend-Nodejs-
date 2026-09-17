@@ -7,6 +7,58 @@
 
   <h1>This is logedin user page</h1>
   <a href="/">home </a>
+  <br>
+  <br>
+  <p id="name"></p>
+  <p id="email"></p>
+  <p id="id"></p>
+
+
+    <script>
+      async function loadUserData() {
+        const token = localStorage.getItem("token");
+      
+        console.log("TOKEN:", token);
+      
+        if (!token) {
+          window.location.href = "/login";
+          return;
+        }
+      
+        const response = await fetch("/user", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+      
+        console.log("Response status:", response.status);
+      
+        const data = await response.json();
+      
+        console.log("Response data:", data);
+      
+        if (data.success === false) {
+          alert(data.message);
+          window.location.href = "/login";
+          return;
+        }
+      
+        document.getElementById("name").textContent =
+          `Name: ${data.name}`;
+      
+        document.getElementById("email").textContent =
+          `Email: ${data.email}`;
+      
+        document.getElementById("id").textContent =
+          `ID: ${data.id}`;
+      }
+    
+      loadUserData();
+</script>
+
+
+  </script>
 
 </body>
 </html>
