@@ -1,18 +1,19 @@
 import bcrypt from "bcrypt";
 import { getUsers } from "../../repository/fileConnection.js";
 import { tokenGeneration } from "../../utils/jwt.js";
+import checkUserEmail from "../../database/checkUserEmail.js";
 
 export const loginService = async (email:string,password:string) => {
-    const users =getUsers();
-    const user = users.find((user) => user.email === email);
-    if(!user){
+    const user = await checkUserEmail(email);
+
+    if(!user.rows[0]){
         return {
             sucess: false,
             message: "Invalid email or password"
         };
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password,user.password);
+    const isPasswordCorrect = await bcrypt.compare(password,user.rows[0].password);
 
     if (!isPasswordCorrect){
         return {
@@ -21,7 +22,7 @@ export const loginService = async (email:string,password:string) => {
         };
     }
 
-    const id= Number(user.id);
+    const id= Number(user.rows[0].id);
     const jwt_token = tokenGeneration(id);
 
     return {
@@ -30,7 +31,7 @@ export const loginService = async (email:string,password:string) => {
         token: jwt_token,
         user: {
             email: email,
-            role: user.role
+            role: user.rows[0].role
         }
     };
 };

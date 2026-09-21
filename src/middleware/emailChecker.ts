@@ -1,17 +1,19 @@
-import { getUsers } from "../repository/fileConnection.js";
 import { Request,Response,NextFunction } from "express";
+import checkUserEmail from "../database/checkUserEmail.js";
 
-export const emailChecker = (req:Request,res:Response,next:NextFunction) => {
+export const emailChecker = async (req:Request,res:Response,next:NextFunction) => {
     const email = req.body.email;
-    const users = getUsers();
-    const emailCheck = users.find((user) => user.email == email);
-    if(emailCheck){
+    const user = await checkUserEmail(email);
+    if(user.rowCount == 0){
+        next();
+    }
+    else{
         res.json({
             sucess: false,
             message: "Email Already exists"
         });
     }
 
-    next();
+    
 
 };

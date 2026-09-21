@@ -4,9 +4,7 @@ import "dotenv/config";
 
 import route1 from "./Routes/frontendRoute.js";
 import loggerMiddleware  from "./middleware/loggerMiddleware.js";
-import authRoute from "./Routes/authRoute.js"
-import userProtection from "./middleware/authMiddleware.js";
-
+import authRoute from "./Routes/authRoute.js";
 
 
 const app = express();
