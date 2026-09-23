@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import "./socket/websocket.js";
 
 
 import route1 from "./Routes/frontendRoute.js";

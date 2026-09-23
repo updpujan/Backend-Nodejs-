@@ -31,4 +31,9 @@ route.get("/userProfile", (req, res) => {
 route.get("/user", protect, userProfile);
 
 
+route.get("/socket",(req,res)=>{
+    res.render("websockettest");
+});
+
+
 export default route
